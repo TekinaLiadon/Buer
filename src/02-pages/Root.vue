@@ -1,11 +1,17 @@
 <template>
-<div>1</div>
+<div style="font-size: 50px">{{text}}</div>
 </template>
 
-<script>
-export default {
-  name: "Root"
-}
+<script setup>
+
+import {onBeforeMount, ref} from "vue";
+import eventEmitter from "@/06-shared/utils/eventEmitter";
+
+const text = ref('1')
+
+onBeforeMount(() => {
+  eventEmitter .subscribe("editSidebar", (value)=> text.value = value);
+})
 </script>
 
 <style scoped>

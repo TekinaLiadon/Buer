@@ -4,13 +4,15 @@
   >
     <v-row class="footer__nav" justify="center" no-gutters>
     <div>
-      Модное описание правил {{ new Date().getFullYear() }} — <strong>Buer</strong>
+      Модное описание правил {{ new Date().getFullYear() }} — <strong>Buer {{text}}</strong>
     </div>
     </v-row>
   </v-footer>
 </template>
 
 <script>
+import eventEmitter from "@/06-shared/utils/eventEmitter";
+
 export default {
   name: "Footer",
   data: () => ({
@@ -20,7 +22,17 @@ export default {
       'mdi-linkedin',
       'mdi-instagram',
     ],
+    text: Date.now()
   }),
+  methods: {
+    editText(){
+      const result = eventEmitter.subscribe("editSidebar", ()=> this.text = Date.now());
+      console.log(result)
+    }
+  },
+  beforeMount() {
+    this.editText()
+  }
 }
 </script>
 

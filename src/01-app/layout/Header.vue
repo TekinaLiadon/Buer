@@ -18,7 +18,7 @@
     <v-list>
       <v-list-item
           prepend-avatar="https://randomuser.me/api/portraits/women/85.jpg"
-          title="Хани"
+          title="Юзверь"
           subtitle="Юзверь"
       ></v-list-item>
     </v-list>
@@ -26,13 +26,14 @@
     <v-divider></v-divider>
 
     <v-list density="compact" nav>
-      <v-list-item v-for="(item, index) in navList" :prepend-icon="item.icon" :title="item.title" @click="$router.push({name: item.value})" :key="index" />
+      <v-list-item v-for="(item, index) in navList" :prepend-icon="item.icon" :title="item.title" @click="editTextRoot(item.title)" :key="index" />
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script>
 import {g} from "@/05-entities/global"
+import eventEmitter from "@/06-shared/utils/eventEmitter";
 export default {
   name: "Header",
   data () {
@@ -46,12 +47,12 @@ export default {
         },
         {
           icon:  "mdi-folder",
-          title: 'Пурсонажи',
+          title: 'Приколы',
           value: 'Characters'
         },
         {
           icon:  "mdi-folder",
-          title: 'Гмштуки',
+          title: 'Настройки',
           value: 'Characters'
         },
       ],
@@ -62,6 +63,10 @@ export default {
       g.userStore().$patch((state) => {
         state.isAuthenticated = !state.isAuthenticated
       })
+    },
+    editTextRoot(text) {
+      eventEmitter.emit("editSidebar", [text]);
+      console.log(eventEmitter.emit("editSidebar", [text]))
     }
   }
 }
